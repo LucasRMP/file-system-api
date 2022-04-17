@@ -26,9 +26,7 @@ export class FilesResolver {
 
   @Query(() => [File], { name: 'filesByFolder' })
   async findByFolder(@Args('input') input: FindByFolderInput): Promise<File[]> {
-    const result = await this.filesService.findAllByPath(input.path);
-    console.log({ result });
-    return result;
+    return this.filesService.findAllByPath(input.path);
   }
 
   @Mutation(() => File)
