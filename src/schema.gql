@@ -1,0 +1,43 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type File {
+  id: ID!
+  filename: String!
+  absolutePath: String!
+  type: String!
+  parent: File
+}
+
+type Query {
+  files: [File!]!
+  filesByFolder(input: FindByFolderInput!): [File!]!
+}
+
+input FindByFolderInput {
+  path: String!
+}
+
+type Mutation {
+  createFile(input: CreateFileInput!): File!
+  updateFile(input: UpdateFileInput!): File!
+}
+
+input CreateFileInput {
+  filename: String!
+  parentId: String!
+  type: FileType!
+}
+
+enum FileType {
+  FILE
+  FOLDER
+}
+
+input UpdateFileInput {
+  filename: String
+  parentId: String
+  type: FileType
+  id: Int!
+}

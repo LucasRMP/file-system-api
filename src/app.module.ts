@@ -2,20 +2,24 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
+import { createFilesByIdLoader } from 'src/resources/files/loaders/file-by-id.loader';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { PosgresDatabaseProviderModule } from './providers/database/postgres/provider.module';
-import { UsersCodeFirstModule } from './models/users-code-first/users-code-first.module';
+import { PostgresDatabaseProviderModule } from './providers/database/postgres/provider.module';
+import { FilesModule } from './resources/files/files.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     GraphQLModule.forRoot({
       autoSchemaFile: join(join(process.cwd(), 'src/schema.gql')),
+      context: () => ({
+        filesByIdLoader: createFilesByIdLoader(),
+      }),
     }),
-    PosgresDatabaseProviderModule,
-    UsersCodeFirstModule,
+    PostgresDatabaseProviderModule,
+    FilesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

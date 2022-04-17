@@ -19,18 +19,10 @@ services:
     container_name: $APP_NAME-db
     restart: always
     tty: true
+    ports:
+      - 5432:5432
     volumes:
       - ./.docker/dbdata:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=$APP_NAME
-
-  # pgadmin:
-  #   image: dpage/pgadmin4
-  #   container_name: $APP_NAME-pgadmin
-  #   tty: true
-  #   environment:
-  #     - PGADMIN_DEFAULT_EMAIL=admin@user.com
-  #     - PGADMIN_DEFAULT_PASSWORD=123456
-  #   ports:
-  #     - 9001:80
